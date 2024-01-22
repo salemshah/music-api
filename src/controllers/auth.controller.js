@@ -35,31 +35,35 @@ exports.registerUser = asyncHandler(async (req, res, next) => {
  * @Response            Object {"title": title, "url"}
  *******************************************************************/
 exports.login = asyncHandler(async (req, res, next) => {
-    const user = await validatePassword()
-    // if reject
-    if (!user) return
+    try {
+        const user = await validatePassword()
+        // if reject
+        if (!user) return
 
-    //save session in database
-    const session = await createSession(user)
-    if (!session) next(new ErrorResponse("Erreur de server"), 500)
+        //save session in database
+        const session = await createSession(user)
+        if (!session) next(new ErrorResponse("Erreur de server"), 500)
 
-    user.session = session?._id
-    const token = await jwtSign({...user, session: session?._id})
+        user.session = session?._id
+        const token = await jwtSign({...user, session: session?._id})
 
-    const options = {
-        path: '/',
-        expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
-        httpOnly: true,
-        secure: true
+        const options = {
+            path: '/',
+            expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+            httpOnly: true,
+            secure: true
+        }
+
+        res.cookie('token', token, options)
+        // create session
+        res.status(200).send({
+            success: true,
+            user,
+            token
+        });
+    } catch (errer) {
+        console.log({errer})
     }
-
-    res.cookie('token', token, options)
-    // create session
-    res.status(200).send({
-        success: true,
-        user,
-        token
-    });
 });
 
 /*******************************************************************
@@ -71,7 +75,7 @@ exports.login = asyncHandler(async (req, res, next) => {
  *******************************************************************/
 exports.logout = asyncHandler(async (req, res, next) => {
     const session = await updateSession({_id: req?.body?.session}, {valid: false})
-    if(!session) return
+    if (!session) return
 
     res.status(200).send({
         success: true,
