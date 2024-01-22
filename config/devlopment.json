@@ -1,0 +1,15 @@
+{
+  "server": {
+    "port": 9000,
+    "dbUri": "mongodb+srv://salemshahdev:salemshahdev@cluster0.eygt6da.mongodb.net/music-rest-api?retryWrites=true&w=majority",
+    "accessTokenTtl": "15m",
+    "refreshTokenTtl": "1y",
+    "accessTokenPrivateKey": "",
+    "accessTokenPublicKey": "",
+    "refreshTokenPrivateKey": "",
+    "refreshTokenPublicKey": ""
+  },
+  "user": {
+    "passwordSalt": 10
+  }
+}

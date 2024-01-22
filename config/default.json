@@ -1,0 +1,23 @@
+{
+  "server": {
+    "port": 9000,
+    "dbUri": "mongodb+srv://salemshahdev:9Vnxpn6LhrolD1pO@cluster0.eygt6da.mongodb.net/music-rest-api?retryWrites=true&w=majority",
+    "dbUri1": "mongodb://127.0.0.1:27017/music-rest-api"
+  },
+  "client": {
+    "origin": ["http://localhost:3000"]
+  },
+  "auth": {
+    "passwordSalt": 10
+  },
+  "jwt": {
+    "refreshTokenTimeToLive": "1y",
+    "accessTokenTimeToLive": "1h",
+    "secret": "IDlF7dUpRbgBx9rQhcekJbekGt2RbpJx"
+  },
+  "cloudinary": {
+    "cloud_name": "duotoxufr",
+    "api_key": "295299339449988",
+    "api_secret": "hTZJuy_oQUzAGD12PjlTkUVVUPw"
+  }
+}
