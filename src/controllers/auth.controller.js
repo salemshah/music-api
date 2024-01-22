@@ -35,9 +35,12 @@ exports.registerUser = asyncHandler(async (req, res, next) => {
  * @Response            Object {"title": title, "url"}
  *******************************************************************/
 exports.login = asyncHandler(async (req, res, next) => {
-    console.log("yesssssssssssssssss");
+    
     try {
         const user = await validatePassword()
+
+        console.log("yesssssssssssssssss", user);
+        
         // if reject
         if (!user) return
 
